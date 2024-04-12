@@ -20,6 +20,8 @@
             <br />
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Modificar" />
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:cadena %>" SelectCommand="SELECT * FROM [Usuarios]"></asp:SqlDataSource>
+            <br />
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Menu.aspx">Menu</asp:HyperLink>
         </div>
     </form>
 </body>

@@ -16,20 +16,20 @@ namespace Clase3
             //Carga inicial del DropdownList
             if (!IsPostBack)
             {
-                DropDownList1.Items.Clear();
-                string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
-                SqlConnection conexion = new SqlConnection(cadenaConexion);
-                conexion.Open();
-                string consultUsers = $"select id, username, password from usuarios";
-                SqlCommand comando = new SqlCommand(consultUsers, conexion);
-                SqlDataAdapter sda = new SqlDataAdapter(comando);
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                DropDownList1.DataSource = dt;
-                DropDownList1.DataTextField = "username";
-                DropDownList1.DataValueField = "id";
-                DropDownList1.DataBind();
-                conexion.Close();
+                //DropDownList1.Items.Clear();
+                //string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
+                //SqlConnection conexion = new SqlConnection(cadenaConexion);
+                //conexion.Open();
+                //string consultUsers = $"select id, username, password from usuarios";
+                //SqlCommand comando = new SqlCommand(consultUsers, conexion);
+                //SqlDataAdapter sda = new SqlDataAdapter(comando);
+                //DataTable dt = new DataTable();
+                //sda.Fill(dt);
+                //DropDownList1.DataSource = dt;
+                //DropDownList1.DataTextField = "username";
+                //DropDownList1.DataValueField = "id";
+                //DropDownList1.DataBind();
+                //conexion.Close();
             }
         }
 
@@ -44,14 +44,14 @@ namespace Clase3
             SqlCommand comando = new SqlCommand(deleteUser, conexion);
             comando.ExecuteNonQuery();
             //Refrescar datos DropDownList
-            string consultUsers = $"select id, username, password from usuarios";
-            SqlCommand comando2 = new SqlCommand(consultUsers, conexion);
-            SqlDataAdapter sda = new SqlDataAdapter(comando2);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            DropDownList1.DataSource = dt;
-            DropDownList1.DataTextField = "username";
-            DropDownList1.DataValueField = "id";
+            //string consultUsers = $"select id, username, password from usuarios";
+            //SqlCommand comando2 = new SqlCommand(consultUsers, conexion);
+            //SqlDataAdapter sda = new SqlDataAdapter(comando2);
+            //DataTable dt = new DataTable();
+            //sda.Fill(dt);
+            //DropDownList1.DataSource = dt;
+            //DropDownList1.DataTextField = "username";
+            //DropDownList1.DataValueField = "id";
             DropDownList1.DataBind();
             conexion.Close();
         }

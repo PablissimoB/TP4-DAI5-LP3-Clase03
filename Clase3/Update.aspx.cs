@@ -39,11 +39,11 @@ namespace Clase3
                 string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
                 SqlConnection conexion = new SqlConnection(cadenaConexion);
                 conexion.Open();
-                //Metodo Delete
                 string id = DropDownList1.SelectedValue.ToString();
                 string modifyUser = $"update Usuarios set username ='{TextBox1.Text}', password = '{TextBox2.Text}' where id = {id}";
                 SqlCommand comando = new SqlCommand(modifyUser, conexion);
                 comando.ExecuteNonQuery();
+                conexion.Close();
                 DropDownList1.DataBind();//para que se actualice SQLDataSource
             }
         }
