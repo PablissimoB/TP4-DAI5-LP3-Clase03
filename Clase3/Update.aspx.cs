@@ -34,13 +34,13 @@ namespace Clase3
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if(TextBox1.Text != "" && TextBox2.Text != "")
+            if (TextBox1.Text != "" && TextBox2.Text != "" && DropDownList1.SelectedValue != "")
             {
                 string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
                 SqlConnection conexion = new SqlConnection(cadenaConexion);
                 conexion.Open();
                 string id = DropDownList1.SelectedValue.ToString();
-                string modifyUser = $"update Usuarios set username ='{TextBox1.Text}', password = '{TextBox2.Text}' where id = {id}";
+                string modifyUser = $"update Usuarios set username ='{TextBox1.Text}', password = '{TextBox2.Text}', idUsuarioTipo = '{DropDownList2.SelectedValue}' where id = {id}";
                 SqlCommand comando = new SqlCommand(modifyUser, conexion);
                 comando.ExecuteNonQuery();
                 conexion.Close();

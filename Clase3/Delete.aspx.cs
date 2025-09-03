@@ -13,47 +13,57 @@ namespace Clase3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Carga inicial del DropdownList
             if (!IsPostBack)
             {
-                //DropDownList1.Items.Clear();
-                //string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
-                //SqlConnection conexion = new SqlConnection(cadenaConexion);
-                //conexion.Open();
-                //string consultUsers = $"select id, username, password from usuarios";
-                //SqlCommand comando = new SqlCommand(consultUsers, conexion);
-                //SqlDataAdapter sda = new SqlDataAdapter(comando);
-                //DataTable dt = new DataTable();
-                //sda.Fill(dt);
-                //DropDownList1.DataSource = dt;
-                //DropDownList1.DataTextField = "username";
-                //DropDownList1.DataValueField = "id";
-                //DropDownList1.DataBind();
-                //conexion.Close();
+                string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
+                SqlConnection conexion = new SqlConnection(cadenaConexion);
+                DropDownList1.Items.Clear();
+                conexion.Open();
+                llenarDropDown(conexion);
+                conexion.Close();
             }
+        }
+        private void llenarDropDown(SqlConnection conexion)
+        {
+            
+            string consultUsers = $"select id, username, password from usuarios";
+            SqlCommand comando2 = new SqlCommand(consultUsers, conexion);
+            SqlDataAdapter sda = new SqlDataAdapter(comando2);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            DropDownList1.DataSource = dt;
+            DropDownList1.DataTextField = "username";
+            DropDownList1.DataValueField = "id";
+            DropDownList1.DataBind();
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
-            SqlConnection conexion = new SqlConnection(cadenaConexion);
-            conexion.Open();
-            //Metodo Delete
-            string id = DropDownList1.SelectedValue.ToString();
-            string deleteUser = $"delete from Usuarios where id = {id}";
-            SqlCommand comando = new SqlCommand(deleteUser, conexion);
-            comando.ExecuteNonQuery();
-            //Refrescar datos DropDownList
-            //string consultUsers = $"select id, username, password from usuarios";
-            //SqlCommand comando2 = new SqlCommand(consultUsers, conexion);
-            //SqlDataAdapter sda = new SqlDataAdapter(comando2);
-            //DataTable dt = new DataTable();
-            //sda.Fill(dt);
-            //DropDownList1.DataSource = dt;
-            //DropDownList1.DataTextField = "username";
-            //DropDownList1.DataValueField = "id";
-            DropDownList1.DataBind();
-            conexion.Close();
+            try
+            {
+                string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
+                SqlConnection conexion = new SqlConnection(cadenaConexion);
+                conexion.Open();
+
+                string id = DropDownList1.SelectedValue.ToString();
+                string deleteUser = $"delete from Usuarios where id = {id}";
+                SqlCommand comando = new SqlCommand(deleteUser, conexion);
+                comando.ExecuteNonQuery();
+
+                llenarDropDown(conexion);
+
+
+                conexion.Close();
+            }
+            catch(Exception ex)
+            {
+                ClientScript.RegisterStartupScript(
+                  this.GetType(),
+                  "alert",
+                  $"alert('Error: {ex.Message}');",
+                  true);
+            }
+            
         }
     }
 }
