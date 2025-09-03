@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Create.aspx" />
     <Content Include="Delete.aspx" />
+    <Content Include="estilo.css" />
     <Content Include="Menu.aspx" />
     <Content Include="Read.aspx" />
     <Content Include="Update.aspx" />

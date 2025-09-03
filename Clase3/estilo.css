@@ -1,0 +1,12 @@
+﻿.tabla-usuarios {
+    border-collapse: separate; /* evita colapsar el doble borde */
+    border-spacing: 0; /* sin espacios entre celdas */
+}
+
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+    }
+

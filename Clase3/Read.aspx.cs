@@ -17,22 +17,42 @@ namespace Clase3
             string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
             SqlConnection conexion = new SqlConnection(cadenaConexion);
             conexion.Open();
-            string consultUsers = $"select id, username, password from usuarios";
+            string consultUsers = $@"select usuarios.id as idUsuario, username, password, idUsuarioTipo,  descripcion from usuarios
+                inner join UsuarioTipos on Usuarios.idUsuarioTipo = UsuarioTipos.id";
             SqlCommand comando = new SqlCommand(consultUsers, conexion);
-            //SqlDataReader register = comando.ExecuteReader();
-            //while(register.Read())
-            //{
-            //    Label1.Text += register["id"].ToString() + register["username"].ToString() + register["password"].ToString() + "-";
-            //}
-            SqlDataAdapter sda = new SqlDataAdapter(comando);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            foreach (DataRow dr in dt.Rows)
+            SqlDataReader register = comando.ExecuteReader();
+
+
+            //Label1.Text = "ID - Username  - Password  - TipoUsuario <br/>";
+            TableHeaderRow header = new TableHeaderRow();
+            header.Cells.Add(new TableHeaderCell { Text = "ID" });
+            header.Cells.Add(new TableHeaderCell { Text = "Username" });
+            header.Cells.Add(new TableHeaderCell { Text = "Password" });
+            header.Cells.Add(new TableHeaderCell { Text = "Tipo Usuario" });
+            tblUsuarios.Rows.Add(header);
+
+            while (register.Read())
             {
-                Label1.Text += dr[0].ToString() + "-";
-                Label1.Text += dr[1].ToString() + "-";
-                Label1.Text += dr[2].ToString() + "-";
+                TableRow fila = new TableRow();
+
+                fila.Cells.Add(new TableCell { Text = register["idUsuario"].ToString() });
+                fila.Cells.Add(new TableCell { Text = register["username"].ToString() });
+                fila.Cells.Add(new TableCell { Text = register["password"].ToString() });
+                fila.Cells.Add(new TableCell { Text = $"{register["idUsuarioTipo"].ToString()}-{register["descripcion"].ToString()}" });
+
+                tblUsuarios.Rows.Add(fila);
+                //Label1.Text += register["idUsuario"].ToString() + " - "+ register["username"].ToString() + " - " + register["password"].ToString() + " - " + register["idUsuarioTipo"].ToString() + "<br/>";
             }
+            //SqlDataAdapter sda = new SqlDataAdapter(comando);
+            //DataTable dt = new DataTable();
+            //sda.Fill(dt);
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    Label1.Text += dr[0].ToString() + " - ";
+            //    Label1.Text += dr[1].ToString() + " - ";
+            //    Label1.Text += dr[2].ToString() + " - ";
+            //    Label1.Text += dr[3].ToString() + " - " + dr[4].ToString() + "<br/>";
+            //}
             conexion.Close();
         }
     }

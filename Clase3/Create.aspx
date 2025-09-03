@@ -15,6 +15,11 @@
             Password
             <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
             <br />
+            TipoUsuarios
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="17px" Width="233px" AppendDataBoundItems="true">
+                  <asp:ListItem Text="-- Seleccione categoría --" Value="" />
+            </asp:DropDownList>
+            <br />
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Agregar" />
             <br />
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Menu.aspx">Menu</asp:HyperLink>
